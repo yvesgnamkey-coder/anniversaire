@@ -1,0 +1,220 @@
+/* ============================================================
+   style.css — Thème romantique, responsive
+   ============================================================ */
+:root {
+  --rose: #ff4d79;
+  --rose-clair: #ffb3c6;
+  --rose-pale: #fff0f4;
+  --violet: #8e44ad;
+  --texte: #3a2530;
+  --blanc: #ffffff;
+  --ombre: 0 10px 30px rgba(255, 77, 121, .2);
+  --rayon: 20px;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Poppins', sans-serif;
+  color: var(--texte);
+  background: var(--rose-pale);
+  line-height: 1.6;
+  overflow-x: hidden;
+}
+
+h1, h2 { font-family: 'Dancing Script', cursive; color: var(--rose); }
+
+/* ---------- Cœurs flottants ---------- */
+.hearts-bg { position: fixed; inset: 0; pointer-events: none; z-index: 0; overflow: hidden; }
+.floating-heart {
+  position: absolute; bottom: -40px; opacity: .6;
+  animation: floatUp linear forwards;
+}
+@keyframes floatUp {
+  to { transform: translateY(-110vh) rotate(25deg); opacity: 0; }
+}
+
+/* ---------- Navigation ---------- */
+.nav {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 10;
+  display: flex; justify-content: center; gap: 1.2rem; flex-wrap: wrap;
+  padding: .8rem 1rem;
+  background: rgba(255, 255, 255, .85); backdrop-filter: blur(8px);
+  box-shadow: 0 2px 12px rgba(0, 0, 0, .06);
+}
+.nav a { color: var(--texte); text-decoration: none; font-size: .9rem; font-weight: 500; }
+.nav a:hover { color: var(--rose); }
+
+/* ---------- Hero ---------- */
+.hero {
+  position: relative; z-index: 1;
+  min-height: 100vh; display: flex; flex-direction: column;
+  justify-content: center; align-items: center; text-align: center;
+  padding: 5rem 1.5rem 2rem;
+  background: linear-gradient(135deg, #ffd1dc 0%, #ffe6ee 50%, #e8d5f5 100%);
+}
+.hero-small { text-transform: uppercase; letter-spacing: 3px; font-size: .8rem; color: var(--violet); }
+.hero h1 { font-size: clamp(2.8rem, 10vw, 6rem); line-height: 1.1; margin: .5rem 0; }
+.hero-sub { max-width: 520px; margin-bottom: 2rem; font-size: 1.05rem; }
+
+/* ---------- Boutons ---------- */
+.btn {
+  display: inline-block; border: none; cursor: pointer;
+  padding: .9rem 1.8rem; border-radius: 50px;
+  font-family: inherit; font-size: 1rem; font-weight: 500;
+  text-decoration: none; transition: transform .2s, box-shadow .2s;
+}
+.btn-primary { background: var(--rose); color: var(--blanc); box-shadow: var(--ombre); }
+.btn-primary:hover { transform: translateY(-3px); }
+
+/* ---------- Sections ---------- */
+.section { position: relative; z-index: 1; padding: 5rem 1.5rem; max-width: 1100px; margin: 0 auto; text-align: center; }
+.section-alt { max-width: none; background: var(--blanc); }
+.section-alt > * { max-width: 800px; margin-left: auto; margin-right: auto; }
+.section h2 { font-size: clamp(2rem, 6vw, 3rem); margin-bottom: .5rem; }
+.section-intro { margin-bottom: 2.5rem; opacity: .8; }
+
+/* ---------- Galerie ---------- */
+.gallery { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 1.2rem; }
+.photo-card {
+  position: relative; overflow: hidden; border-radius: var(--rayon);
+  box-shadow: var(--ombre); cursor: pointer; aspect-ratio: 4 / 5;
+  background: linear-gradient(135deg, var(--rose-clair), #e8d5f5);
+  display: flex; align-items: center; justify-content: center;
+  transition: transform .3s;
+}
+.photo-card:hover { transform: scale(1.03) rotate(-1deg); }
+.photo-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.photo-card .caption {
+  position: absolute; left: 0; right: 0; bottom: 0; padding: 1.5rem 1rem .8rem;
+  background: linear-gradient(transparent, rgba(0, 0, 0, .65));
+  color: #fff; font-size: .9rem; text-align: left;
+}
+.photo-fallback { font-size: 4rem; }
+
+/* ---------- Lightbox ---------- */
+.lightbox {
+  position: fixed; inset: 0; z-index: 100; background: rgba(0, 0, 0, .9);
+  display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 1rem;
+}
+.lightbox[hidden] { display: none; }
+.lightbox img { max-width: 95%; max-height: 80vh; border-radius: 12px; }
+.lightbox p { color: #fff; margin-top: 1rem; }
+.lightbox-close {
+  position: absolute; top: 1rem; right: 1.5rem; background: none; border: none;
+  color: #fff; font-size: 2.5rem; cursor: pointer;
+}
+
+/* ---------- Messages & réactions ---------- */
+.messages { display: flex; flex-direction: column; gap: 1.5rem; }
+.message-card {
+  background: var(--rose-pale); border-radius: var(--rayon);
+  padding: 1.8rem; text-align: left; box-shadow: var(--ombre);
+  border-left: 5px solid var(--rose);
+  opacity: 0; transform: translateY(30px); transition: opacity .6s, transform .6s;
+}
+.message-card.visible { opacity: 1; transform: none; }
+.message-card h3 { font-family: 'Dancing Script', cursive; font-size: 1.7rem; color: var(--rose); margin-bottom: .5rem; }
+.reactions { display: flex; gap: .5rem; flex-wrap: wrap; margin-top: 1.2rem; }
+.reaction-btn {
+  display: flex; align-items: center; gap: .35rem;
+  background: var(--blanc); border: 2px solid var(--rose-clair);
+  border-radius: 50px; padding: .35rem .8rem; font-size: 1.1rem; cursor: pointer;
+  transition: transform .15s, background .2s;
+}
+.reaction-btn:hover { transform: scale(1.12); }
+.reaction-btn.active { background: var(--rose); border-color: var(--rose); color: #fff; }
+.reaction-btn .count { font-size: .85rem; font-family: 'Poppins', sans-serif; }
+.reaction-btn.pop { animation: pop .4s; }
+@keyframes pop { 50% { transform: scale(1.4); } }
+
+/* ---------- Formulaire ---------- */
+.love-form {
+  background: var(--blanc); border-radius: var(--rayon);
+  padding: 3rem 1.5rem; box-shadow: var(--ombre); max-width: 600px; margin: 0 auto;
+  min-height: 280px; display: flex; flex-direction: column; justify-content: center;
+}
+.love-form[hidden] { display: none; }
+.question-text { font-size: 1.6rem; font-weight: 500; margin-bottom: 2rem; min-height: 3rem; }
+.answers {
+  position: relative; display: flex; justify-content: center; align-items: center;
+  gap: 1.5rem; flex-wrap: wrap; min-height: 90px;
+}
+.btn-yes { background: #2ecc71; color: #fff; transition: transform .3s; box-shadow: 0 6px 20px rgba(46, 204, 113, .4); }
+.btn-no { background: #e0e0e0; color: #555; transition: transform .25s, font-size .25s, padding .25s; }
+
+.love-answer { max-width: 600px; margin: 0 auto; padding: 3rem 1.5rem; animation: appear 1s; }
+.love-answer[hidden] { display: none; }
+.love-answer-text { font-family: 'Dancing Script', cursive; font-size: clamp(3rem, 12vw, 5.5rem); color: var(--rose); animation: beat 1.2s infinite; }
+.love-answer-sub { font-size: 1.1rem; margin-top: 1rem; }
+@keyframes appear { from { opacity: 0; transform: scale(.7); } to { opacity: 1; transform: none; } }
+@keyframes beat { 0%, 100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+
+/* ---------- Confettis ---------- */
+.confetti { position: fixed; top: -20px; z-index: 200; pointer-events: none; animation: fall linear forwards; }
+@keyframes fall { to { transform: translateY(110vh) rotate(540deg); opacity: .8; } }
+
+/* ---------- Compte à rebours ---------- */
+.countdown { display: flex; gap: .8rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; font-weight: 500; }
+.countdown[hidden] { display: none; }
+.cd-unit { background: rgba(255, 255, 255, .8); border-radius: 14px; padding: .6rem .9rem; min-width: 70px; box-shadow: var(--ombre); }
+.cd-num { display: block; font-size: 1.6rem; color: var(--rose); line-height: 1.2; }
+.cd-label { font-size: .7rem; text-transform: uppercase; letter-spacing: 1px; }
+.cd-today { font-family: 'Dancing Script', cursive; font-size: 1.8rem; color: var(--rose); }
+
+/* ---------- Cartes « Pourquoi je t'aime » ---------- */
+.flip-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 1.2rem; }
+.flip-card { background: none; border: none; padding: 0; cursor: pointer; perspective: 1000px; height: 200px; font-family: inherit; }
+.flip-inner { position: relative; width: 100%; height: 100%; transition: transform .7s; transform-style: preserve-3d; }
+.flip-card.flipped .flip-inner { transform: rotateY(180deg); }
+.flip-face {
+  position: absolute; inset: 0; backface-visibility: hidden; -webkit-backface-visibility: hidden;
+  border-radius: var(--rayon); box-shadow: var(--ombre); padding: 1.2rem;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: .5rem;
+}
+.flip-front { background: linear-gradient(135deg, var(--rose), #ff8fab); color: #fff; font-size: 1.1rem; font-weight: 500; }
+.flip-front .flip-heart { font-size: 2.5rem; }
+.flip-back { background: var(--blanc); color: var(--texte); transform: rotateY(180deg); border: 2px solid var(--rose-clair); font-size: 1rem; }
+
+/* ---------- Écran de mot de passe ---------- */
+body.locked { overflow: hidden; }
+.lock-screen {
+  position: fixed; inset: 0; z-index: 300; padding: 1rem;
+  background: linear-gradient(135deg, #ffd1dc, #e8d5f5);
+  display: flex; align-items: center; justify-content: center;
+}
+.lock-screen[hidden] { display: none; }
+.lock-box {
+  background: var(--blanc); border-radius: var(--rayon); box-shadow: var(--ombre);
+  padding: 2.2rem 1.5rem; width: 100%; max-width: 380px; text-align: center;
+  display: flex; flex-direction: column; gap: .9rem;
+}
+.lock-icon { font-size: 3rem; }
+.lock-hint { font-size: .9rem; opacity: .8; }
+.lock-box input {
+  padding: .8rem 1rem; border: 2px solid var(--rose-clair); border-radius: 50px;
+  font-family: inherit; font-size: 1rem; text-align: center; outline: none;
+}
+.lock-box input:focus { border-color: var(--rose); }
+.lock-error { color: #c0392b; font-size: .9rem; min-height: 1.2rem; }
+.lock-screen.shake .lock-box { animation: shake .4s; }
+@keyframes shake { 20%, 60% { transform: translateX(-10px); } 40%, 80% { transform: translateX(10px); } }
+
+/* ---------- Bouton musique ---------- */
+.music-btn {
+  position: fixed; right: 1rem; bottom: 1rem; z-index: 50;
+  width: 52px; height: 52px; border-radius: 50%; border: none; cursor: pointer;
+  background: var(--rose); color: #fff; font-size: 1.4rem; box-shadow: var(--ombre);
+  transition: transform .2s;
+}
+.music-btn:hover { transform: scale(1.1); }
+.music-btn[hidden] { display: none; }
+
+/* ---------- Footer ---------- */
+.footer { position: relative; z-index: 1; text-align: center; padding: 2rem 1rem; background: var(--rose); color: #fff; }
+
+@media (max-width: 600px) {
+  .section { padding: 4rem 1rem; }
+  .question-text { font-size: 1.3rem; }
+}
